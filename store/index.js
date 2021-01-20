@@ -1,37 +1,68 @@
 /* eslint-disable no-console */
-import userbase from 'userbase-js'
-
 export const state = () => ({
   signedIn: false,
-  user: null
+  user: null,
+  todos: []
 })
 
+export const mutations = {
+  updateUser(state, payload) {
+    state.user = payload
+  },
+
+  updateTodos(state, payload) {
+    state.todos = payload
+  }
+}
+
 export const actions = {
-  async nuxtServerInit({ commit }, ctx) {
-    const session = await userbase.init({
+  async nuxtClientInit({ commit }, ctx) {
+    console.log('🚀 ~ file: index.js ~ line 11 ~ nuxtClientInit ~ ctx', ctx)
+    console.log('nuxtClientInit ~ Running!')
+
+    const session = await this.$db.init({
       appId: 'ceb14891-f2ad-453d-9ec1-b0919bdfceab',
       updateUserHandler({ user }) {
-        console.log(
-          '🚀 ~ file: index.js ~ line 13 ~ updateUserHandler ~ user',
-          user
-        )
+        console.log('updateUserHandler ~ user', user)
       }
     })
-    console.log(
-      '🚀 ~ file: index.js ~ line 20 ~ nuxtServerInit ~ session',
-      session
-    )
+    if (session.user) {
+      commit('updateUser', session.user)
+      await this.$db.openDatabase({
+        databaseName: 'todos',
+        // eslint-disable-next-line object-shorthand
+        changeHandler: function (items) {
+          commit('updateTodos', items)
+        }
+      })
+    }
+  },
+
+  async initDatabase({ commit }) {
+    return await this.$db.openDatabase({
+      databaseName: 'todos',
+      // eslint-disable-next-line object-shorthand
+      changeHandler: function (items) {
+        commit('updateTodos', items)
+      }
+    })
   },
 
   async signUpUser({ commit }, payload) {
-    const user = await userbase.signUp(payload)
-    commit('setUser', user)
+    const user = await this.$db.signUp(payload)
+    commit('updateUser', user)
+  },
+
+  async signInUser({ commit }, payload) {
+    const user = await this.$db.signIn(payload)
+    commit('updateUser', user)
+  },
+
+  async logout({ commit }) {
+    await this.$db.signOut()
+    commit('updateUser', null)
+    commit('updateTodos', [])
   }
 }
 
-export const mutations = {
-  setUser(state, payload) {
-    state.user = { ...payload }
-  }
-}
-// console.log('🚀 ~ file: index.js ~ line 8 ~ nuxtServerInit ~ ctx', ctx)
+// console.log('🚀 ~ file: index.js ~ line 8 ~ nuxtClientInit ~ ctx', ctx)
