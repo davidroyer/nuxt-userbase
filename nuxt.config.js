@@ -3,8 +3,6 @@ export default {
 
   ssr: false,
 
-  target: 'static',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: null,
@@ -79,5 +77,10 @@ export default {
 
   router: {
     middleware: 'auth'
+  },
+
+  loadingIndicator: {
+    name: 'circle',
+    color: '#007bff'
   }
 }

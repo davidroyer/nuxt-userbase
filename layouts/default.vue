@@ -8,16 +8,7 @@
 </template>
 
 <script>
-export default {
-  // head() {
-  //   return {
-  //     titleTemplate: (titleChunk) => {
-  //       // If undefined or blank then we don't need the hyphen
-  //       return titleChunk ? `${titleChunk} - Site Title` : 'Site Title'
-  //     },
-  //   }
-  // },
-}
+export default {}
 </script>
 
 <style>
