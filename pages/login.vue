@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Login</h2>
+    <h2>Please Login</h2>
     <b-button variant="primary" @click="handleSignIn">
       Login
       <b-spinner v-if="handlingSignIn" small></b-spinner>
@@ -10,10 +10,12 @@
 
 <script>
 export default {
+  middleware({ store, redirect }) {
+    if (store.state.user) redirect('/app')
+  },
   data: () => ({
     handlingSignIn: false
   }),
-
   methods: {
     async handleSignIn() {
       this.handlingSignIn = true
