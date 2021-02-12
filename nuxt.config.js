@@ -35,6 +35,9 @@ export default {
     '@nuxtjs/eslint-module'
   ],
 
+  eslint: {
+    cache: false
+  },
   publicRuntimeConfig: {
     axios: {
       baseURL: 'https://api.nuxtjs.dev'
@@ -74,7 +77,7 @@ export default {
   build: {},
 
   router: {
-    // middleware: 'auth'
+    middleware: 'route-controller'
   },
 
   loadingIndicator: {

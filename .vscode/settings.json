@@ -1,3 +1,5 @@
 {
+  "workbench.editor.showTabs": false,
+  "breadcrumbs.symbolPath": "off"
   // "prettier.printWidth": 100
 }

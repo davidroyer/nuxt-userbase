@@ -14,3 +14,15 @@
   <https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading-indicator#built-in-indicators>
 
 - To use SPA mode set `ssr` to `false`. Remove `target: 'static'`.
+
+### eslint cache
+
+Disable it in `nuxt.config.js` like so:
+
+```js
+export default {
+  eslint: {
+    cache: false
+  }
+}
+```

@@ -11,7 +11,7 @@
 <script>
 export default {
   middleware({ store, redirect }) {
-    if (store.state.user) redirect('/app')
+    if (store.state.user) redirect('/todos')
   },
 
   data: () => ({

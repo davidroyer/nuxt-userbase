@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import { dataTransformer } from '@/utils'
+
 export const state = () => ({
   user: null,
   todos: []
@@ -9,8 +11,8 @@ export const mutations = {
     state.user = payload
   },
 
-  updateTodos(state, payload) {
-    state.todos = payload
+  updateTodos(state, todos) {
+    state.todos = todos
   }
 }
 
@@ -35,7 +37,8 @@ export const actions = {
     return await this.$db.openDatabase({
       databaseName: 'todos',
       changeHandler(items) {
-        commit('updateTodos', items)
+        const todos = dataTransformer(items)
+        commit('updateTodos', todos)
       }
     })
   },
@@ -55,7 +58,6 @@ export const actions = {
   async signOut({ commit }) {
     await this.$db.signOut()
     commit('setUser', null)
-    // commit('updateTodos', [])
     this.$router.push('/login')
   }
 }
