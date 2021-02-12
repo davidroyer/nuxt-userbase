@@ -13,12 +13,15 @@ export default {
   middleware({ store, redirect }) {
     if (store.state.user) redirect('/app')
   },
+
   data: () => ({
     handlingSignIn: false
   }),
+
   methods: {
     async handleSignIn() {
       this.handlingSignIn = true
+
       await this.$store.dispatch('signIn', {
         username: 'admin1',
         password: '@pw4admin1',

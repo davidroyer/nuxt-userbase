@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 export const state = () => ({
-  signedIn: false,
   user: null,
   todos: []
 })
