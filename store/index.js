@@ -6,7 +6,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  updateUser(state, payload) {
+  setUser(state, payload) {
     state.user = payload
   },
 
@@ -16,53 +16,47 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtClientInit({ commit }, ctx) {
-    console.log('🚀 ~ file: index.js ~ line 11 ~ nuxtClientInit ~ ctx', ctx)
-    console.log('nuxtClientInit ~ Running!')
-
+  async nuxtClientInit({ commit, dispatch }, ctx) {
     const session = await this.$db.init({
       appId: 'ceb14891-f2ad-453d-9ec1-b0919bdfceab',
-      updateUserHandler({ user }) {
-        console.log('updateUserHandler ~ user', user)
+      setUserHandler({ user }) {
+        console.log('setUserHandler ~ user', user)
       }
     })
+
     if (session.user) {
-      commit('updateUser', session.user)
-      await this.$db.openDatabase({
-        databaseName: 'todos',
-        // eslint-disable-next-line object-shorthand
-        changeHandler: function (items) {
-          commit('updateTodos', items)
-        }
-      })
+      commit('setUser', session.user)
+      await dispatch('initDatabase')
     }
   },
 
   async initDatabase({ commit }) {
+    console.log('🚀 ~ initDatabase')
+
     return await this.$db.openDatabase({
       databaseName: 'todos',
-      // eslint-disable-next-line object-shorthand
-      changeHandler: function (items) {
+      changeHandler(items) {
         commit('updateTodos', items)
       }
     })
   },
 
-  async signUpUser({ commit }, payload) {
+  async signUpUser({ commit, dispatch }, payload) {
     const user = await this.$db.signUp(payload)
-    commit('updateUser', user)
+    commit('setUser', user)
+    await dispatch('initDatabase')
   },
 
-  async signInUser({ commit }, payload) {
+  async signInUser({ commit, dispatch }, payload) {
     const user = await this.$db.signIn(payload)
-    commit('updateUser', user)
+    commit('setUser', user)
+    await dispatch('initDatabase')
   },
 
   async logout({ commit }) {
     await this.$db.signOut()
-    commit('updateUser', null)
+    commit('setUser', null)
     commit('updateTodos', [])
+    this.$router.push('/login')
   }
 }
-
-// console.log('🚀 ~ file: index.js ~ line 8 ~ nuxtClientInit ~ ctx', ctx)

@@ -24,7 +24,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/db.client.js'],
+  plugins: ['@/plugins/db.client.js', '@/plugins/init.client.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -76,7 +76,7 @@ export default {
   build: {},
 
   router: {
-    middleware: 'auth'
+    // middleware: 'auth'
   },
 
   loadingIndicator: {

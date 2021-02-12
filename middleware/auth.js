@@ -1,9 +1,13 @@
-export default async (ctx) => {
-  // eslint-disable-next-line no-console
-  console.log('🚀 Middleware - auth.js ~ line 2 ~ ctx', ctx)
-  await ctx.store.dispatch('nuxtClientInit')
+/* eslint-disable no-console */
+export default ({ store, redirect }) => {
+  console.log('🚀 Middleware - auth.js -> Check if user is logged in')
+
+  const isAuthenticated = !!store.state.user
+  console.log('🚀 ~ file: auth.js ~ line 6 ~ isAuthenticated', isAuthenticated)
+  if (!isAuthenticated) redirect('/login')
 }
 
-// export default function ({ store, route }) {
-//   store.commit('class/SetClass', route.name)
+// const isAuthenticated = !!store.state.auth.user
+// if (!isAuthenticated) {
+//   redirect({ name: 'auth' })
 // }
