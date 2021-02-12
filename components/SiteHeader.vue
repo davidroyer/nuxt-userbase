@@ -19,7 +19,7 @@
           </template>
           <template v-else>
             <b-button
-              variant="danger"
+              variant="primary"
               @click="$store.dispatch('signOut')"
               v-text="`Logout`"
             />
