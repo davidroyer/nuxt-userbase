@@ -10,7 +10,6 @@ export default async ({ $db, store }) => {
     }
   })
 
-  // NOTE: If user, set everything up
   if (session.user) {
     store.commit('setUser', session.user)
     await store.dispatch('getTodos')
