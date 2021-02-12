@@ -16,20 +16,6 @@ export const mutations = {
 }
 
 export const actions = {
-  async initializeDB({ commit, dispatch }) {
-    const session = await this.$db.init({
-      appId: 'ceb14891-f2ad-453d-9ec1-b0919bdfceab',
-      setUserHandler({ user }) {
-        commit('setUser', user)
-      }
-    })
-
-    if (session.user) {
-      commit('setUser', session.user)
-      await dispatch('getTodos')
-    }
-  },
-
   async getTodos({ commit }) {
     return await this.$db.openDatabase({
       databaseName: 'todos',
