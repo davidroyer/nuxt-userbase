@@ -17,7 +17,7 @@ export default {
   methods: {
     async handleSignIn() {
       this.handlingSignIn = true
-      await this.$store.dispatch('signInUser', {
+      await this.$store.dispatch('signIn', {
         username: 'admin1',
         password: '@pw4admin1',
         rememberMe: 'local',

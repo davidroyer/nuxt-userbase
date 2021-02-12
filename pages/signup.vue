@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Login</h2>
+    <h2>Sign Up</h2>
     <b-button variant="primary" @click="signUp">
       Login
       <b-spinner v-if="handlingSignUp" small></b-spinner>
@@ -18,7 +18,7 @@ export default {
     signUp() {
       this.handlingSignUp = false
 
-      this.$store.dispatch('signUpUser', {
+      this.$store.dispatch('signUp', {
         username: 'admin1',
         password: '@pw4admin1',
         email: 'droyer01@gmail.com',

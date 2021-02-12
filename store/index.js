@@ -20,7 +20,7 @@ export const actions = {
     const session = await this.$db.init({
       appId: 'ceb14891-f2ad-453d-9ec1-b0919bdfceab',
       setUserHandler({ user }) {
-        console.log('setUserHandler ~ user', user)
+        commit('setUser', user)
       }
     })
 
@@ -41,19 +41,19 @@ export const actions = {
     })
   },
 
-  async signUpUser({ commit, dispatch }, payload) {
-    const user = await this.$db.signUp(payload)
-    commit('setUser', user)
-    await dispatch('initDatabase')
-  },
-
-  async signInUser({ commit, dispatch }, payload) {
+  async signIn({ commit, dispatch }, payload) {
     const user = await this.$db.signIn(payload)
     commit('setUser', user)
     await dispatch('initDatabase')
   },
 
-  async logout({ commit }) {
+  async signUp({ commit, dispatch }, payload) {
+    const user = await this.$db.signUp(payload)
+    commit('setUser', user)
+    await dispatch('initDatabase')
+  },
+
+  async signOut({ commit }) {
     await this.$db.signOut()
     commit('setUser', null)
     commit('updateTodos', [])

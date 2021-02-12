@@ -15,7 +15,7 @@
             <b-button variant="primary" to="/login">Login</b-button>
           </template>
           <template v-else>
-            <b-button variant="danger" @click="$store.dispatch('logout')">
+            <b-button variant="danger" @click="$store.dispatch('signOut')">
               Logout
             </b-button>
           </template>
