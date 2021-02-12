@@ -22,9 +22,14 @@
           >
             <div class="title flex-grow-1">{{ todo.title }}</div>
           </b-form-checkbox>
-          <b-button size="sm" @click="deleteTodo(todo.itemId)">
-            <b-icon icon="trash" />
-          </b-button>
+          <!-- <b-button size="sm" @click="deleteTodo(todo.itemId)"> -->
+          <b-icon
+            icon="trash"
+            variant="danger"
+            font-scale="1.3"
+            @click="deleteTodo(todo.itemId)"
+          />
+          <!-- </b-button> -->
         </b-list-group-item>
       </b-list-group>
 
@@ -40,6 +45,16 @@ export default {
   data: () => ({
     newTodo: ''
   }),
+
+  computed: {
+    sortedTodos() {
+      const todos = [...this.$store.state.todos]
+      const sortedTodos = todos.sort(
+        (a, b) => a.createdBy.timestamp - b.createdBy.timestamp
+      )
+      return sortedTodos
+    }
+  },
 
   methods: {
     updateTodoCompletion(newValue, todo) {
@@ -57,7 +72,11 @@ export default {
     async addTodo() {
       await this.$db.insertItem({
         databaseName: 'todos',
-        item: { title: this.newTodo.trim(), completed: false }
+        item: {
+          title: this.newTodo.trim(),
+          completed: false,
+          createdOn: new Date()
+        }
       })
 
       this.newTodo = ''
@@ -85,6 +104,10 @@ export default {
 
 .todo-checkbox input,
 .todo-checkbox .title {
+  cursor: pointer;
+}
+
+.bi-trash {
   cursor: pointer;
 }
 </style>
