@@ -26,3 +26,7 @@ export default {
   }
 }
 ```
+
+## Handling Vuex & Checkbox Update
+
+- Use `checked` instead of `v-model` of `value`

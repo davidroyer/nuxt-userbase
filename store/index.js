@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { dataTransformer } from '@/utils'
 
 export const state = () => ({
@@ -17,7 +16,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtClientInit({ commit, dispatch }, ctx) {
+  async initializeDB({ commit, dispatch }) {
     const session = await this.$db.init({
       appId: 'ceb14891-f2ad-453d-9ec1-b0919bdfceab',
       setUserHandler({ user }) {
@@ -27,13 +26,11 @@ export const actions = {
 
     if (session.user) {
       commit('setUser', session.user)
-      await dispatch('initDatabase')
+      await dispatch('getTodos')
     }
   },
 
-  async initDatabase({ commit }) {
-    console.log('🚀 ~ initDatabase')
-
+  async getTodos({ commit }) {
     return await this.$db.openDatabase({
       databaseName: 'todos',
       changeHandler(items) {
@@ -46,13 +43,13 @@ export const actions = {
   async signIn({ commit, dispatch }, payload) {
     const user = await this.$db.signIn(payload)
     commit('setUser', user)
-    await dispatch('initDatabase')
+    await dispatch('getTodos')
   },
 
   async signUp({ commit, dispatch }, payload) {
     const user = await this.$db.signUp(payload)
     commit('setUser', user)
-    await dispatch('initDatabase')
+    await dispatch('getTodos')
   },
 
   async signOut({ commit }) {
