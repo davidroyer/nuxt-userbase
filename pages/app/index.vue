@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>Private App</h2>
-    <pre>{{ $store.state.user }}</pre>
     <b-form-input
       v-model="newTodo"
       placeholder="Add To Your Todos"

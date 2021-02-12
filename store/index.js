@@ -56,7 +56,7 @@ export const actions = {
   async signOut({ commit }) {
     await this.$db.signOut()
     commit('setUser', null)
-    commit('updateTodos', [])
+    // commit('updateTodos', [])
     this.$router.push('/login')
   }
 }

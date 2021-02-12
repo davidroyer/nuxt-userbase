@@ -2,7 +2,7 @@
   <div>
     <h2>Sign Up</h2>
     <b-button variant="primary" @click="signUp">
-      Login
+      Sign Up
       <b-spinner v-if="handlingSignUp" small></b-spinner>
     </b-button>
   </div>
