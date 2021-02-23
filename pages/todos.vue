@@ -33,7 +33,7 @@
         </b-list-group-item>
       </b-list-group>
 
-      <pre class="mt-5">{{ $store.state.todos }}</pre>
+      <!-- <pre class="mt-5">{{ $store.state.todos }}</pre> -->
     </b-col>
   </b-row>
 </template>

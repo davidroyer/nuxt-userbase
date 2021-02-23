@@ -10,10 +10,6 @@
 
 <script>
 export default {
-  middleware({ store, redirect }) {
-    if (store.state.user) redirect('/todos')
-  },
-
   data: () => ({
     handlingSignIn: false
   }),
@@ -30,10 +26,8 @@ export default {
       })
 
       this.handlingSignIn = false
-      this.$router.push({ name: 'app' })
+      this.$router.push('/todos')
     }
   }
 }
 </script>
-
-<style></style>
