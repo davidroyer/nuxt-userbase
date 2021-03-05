@@ -17,7 +17,7 @@ export const mutations = {
 
 export const actions = {
   async getTodos({ commit }) {
-    return await this.$db.openDatabase({
+    await this.$userbase.openDatabase({
       databaseName: 'todos',
       changeHandler(items) {
         const todos = dataTransformer(items)
@@ -27,19 +27,19 @@ export const actions = {
   },
 
   async signIn({ commit, dispatch }, payload) {
-    const user = await this.$db.signIn(payload)
+    const user = await this.$userbase.signIn(payload)
     commit('setUser', user)
     await dispatch('getTodos')
   },
 
   async signUp({ commit, dispatch }, payload) {
-    const user = await this.$db.signUp(payload)
+    const user = await this.$userbase.signUp(payload)
     commit('setUser', user)
     await dispatch('getTodos')
   },
 
   async signOut({ commit }) {
-    await this.$db.signOut()
+    await this.$userbase.signOut()
     commit('setUser', null)
     this.$router.push('/login')
   }

@@ -1,3 +1,6 @@
 export default ({ store, redirect, route }) => {
-  if (route.name !== 'todos' && store.state.user) redirect('/todos')
+  const activeUser = store.state.user
+
+  if (activeUser && route.name !== 'todos') redirect('/todos')
+  if (!activeUser && route.name !== 'login') redirect('/login')
 }

@@ -5,13 +5,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: null,
-    titleTemplate: (titleChunk) => {
-      // If undefined or blank then we don't need the hyphen
-      return titleChunk
-        ? `${titleChunk} - Nuxt BootStrap Template`
-        : 'Nuxt BootStrap Template'
-    },
+    title: 'Nudo',
+
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -24,7 +19,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/db.client.js', '@/plugins/app-init.client.js'],
+  plugins: ['@/plugins/userbase.js', '@/plugins/app-init.client.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -64,7 +59,8 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'en',
+      short_name: 'Nudo'
     },
     icon: {
       source: './static/app-icon.png'

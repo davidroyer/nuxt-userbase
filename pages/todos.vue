@@ -40,8 +40,6 @@
 
 <script>
 export default {
-  middleware: 'app-guard',
-
   data: () => ({
     newTodo: ''
   }),
@@ -70,7 +68,7 @@ export default {
     },
 
     async addTodo() {
-      await this.$db.insertItem({
+      await this.$userbase.insertItem({
         databaseName: 'todos',
         item: {
           title: this.newTodo.trim(),
@@ -83,14 +81,14 @@ export default {
     },
 
     async updateTodo(todoItem) {
-      await this.$db.updateItem({
+      await this.$userbase.updateItem({
         databaseName: 'todos',
         ...todoItem
       })
     },
 
     async deleteTodo(id) {
-      await this.$db.deleteItem({ databaseName: 'todos', itemId: id })
+      await this.$userbase.deleteItem({ databaseName: 'todos', itemId: id })
     }
   }
 }
